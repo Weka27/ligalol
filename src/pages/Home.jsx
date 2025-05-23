@@ -1,70 +1,31 @@
-// src/pages/Home.jsx
 import React from "react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col">
-      {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center flex-grow px-6 text-center">
-        <h1 className="text-5xl font-extrabold mb-4 drop-shadow-lg">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center justify-center p-6">
+      <header className="mb-12 text-center">
+        <h1 className="text-5xl font-extrabold mb-4">
           ClassicCore League
         </h1>
-        <p className="max-w-xl mb-8 text-lg text-gray-300 drop-shadow-md">
-          Die nostalgische Online-Liga für Counter-Strike 1.6, Warcraft 3 & mehr!
-          Tritt gegen echte Gegner an, kämpfe in Ladder und Turnieren und werde
-          Champion der alten Schule.
+        <p className="text-gray-400 text-lg max-w-xl mx-auto">
+          Deine Nostalgie-Liga für Spiele wie Counter-Strike 1.6, Warcraft 3 & Co.
+          <br />
+          Fordere andere heraus, steig in der Ladder auf & dominiere die Rankings!
         </p>
-        <div className="space-x-4">
-          <a
-            href="/register"
-            className="inline-block px-6 py-3 bg-blue-600 rounded-lg font-semibold hover:bg-blue-700 transition"
-          >
-            Jetzt registrieren
-          </a>
-          <a
-            href="/ladder"
-            className="inline-block px-6 py-3 border border-blue-600 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition"
-          >
-            Ladder anschauen
-          </a>
-        </div>
-      </section>
+      </header>
 
-      {/* Features Section */}
-      <section className="bg-gray-800 py-16 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-          <FeatureCard
-            icon="⚙️"
-            title="Automatische Elo-Wertung"
-            description="Unser Ladder-System passt deine Wertung nach jedem Match automatisch an."
-          />
-          <FeatureCard
-            icon="🏆"
-            title="Turniere & Ladder"
-            description="Nimm an spannenden Turnieren teil oder steigere dich in der Ladder."
-          />
-          <FeatureCard
-            icon="🛡️"
-            title="Anti-Cheat & Fairplay"
-            description="Wir setzen auf Fairness – mit Maßnahmen gegen Cheater und Betrüger."
-          />
-        </div>
-      </section>
+      <main className="space-x-4">
+        <button className="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-lg font-semibold shadow-lg">
+          Jetzt registrieren
+        </button>
+        <button className="bg-transparent border border-blue-600 hover:bg-blue-600 transition px-8 py-3 rounded-lg font-semibold shadow-lg">
+          Mehr erfahren
+        </button>
+      </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 text-center py-6">
-        © 2025 ClassicCore League — Built with ❤️ for Nostalgie-Fans
+      <footer className="mt-24 text-gray-600 text-sm">
+        © 2025 ClassicCore League. Alle Rechte vorbehalten.
       </footer>
-    </div>
-  );
-}
-
-function FeatureCard({ icon, title, description }) {
-  return (
-    <div className="bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-xl transition cursor-default">
-      <div className="text-4xl mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-300">{description}</p>
     </div>
   );
 }
