@@ -8,7 +8,7 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="bg-gray-800 rounded shadow-lg overflow-hidden">
           <img
-            src="https://upload.wikimedia.org/wikipedia/en/5/5d/Counter-Strike_1.6_cover.jpg"
+            src="https://www.gamersglobal.de/sites/gamersglobal.de/files/news/teaser/164/header.jpg"
             alt="Counter-Strike 1.6"
             className="w-full h-48 object-cover"
           />
