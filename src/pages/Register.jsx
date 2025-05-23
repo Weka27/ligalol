@@ -19,7 +19,7 @@ export default function Register() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/"); // Nach erfolgreicher Registrierung zur Startseite weiterleiten
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
@@ -27,20 +27,20 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-900">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-md"
+        className="bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Registrieren</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-white">
+          Registrieren
+        </h2>
 
         {error && (
-          <div className="bg-red-100 text-red-700 p-2 mb-4 rounded">
-            {error}
-          </div>
+          <div className="bg-red-700 text-red-100 p-2 mb-4 rounded">{error}</div>
         )}
 
-        <label htmlFor="email" className="block mb-2 font-semibold">
+        <label htmlFor="email" className="block mb-2 font-semibold text-gray-300">
           E-Mail
         </label>
         <input
@@ -49,10 +49,13 @@ export default function Register() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full p-2 mb-4 border border-gray-600 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <label htmlFor="password" className="block mb-2 font-semibold">
+        <label
+          htmlFor="password"
+          className="block mb-2 font-semibold text-gray-300"
+        >
           Passwort
         </label>
         <input
@@ -62,7 +65,7 @@ export default function Register() {
           minLength={6}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-6 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full p-2 mb-6 border border-gray-600 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <button
@@ -76,4 +79,3 @@ export default function Register() {
     </div>
   );
 }
-
