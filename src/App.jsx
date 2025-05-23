@@ -1,47 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebaseConfig";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import Register from './pages/Register.jsx';  // falls du schon hast
+// ... andere imports
 
-import Navbar from "./components/Navbar.jsx";
-import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import Ladder from "./pages/Ladder.jsx";
-
-export default function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) return <div className="flex justify-center items-center h-screen text-white">Loading...</div>;
-
+function App() {
   return (
-    <BrowserRouter>
-      <Navbar user={user} />
+    <Router>
+      {/* Optional Navbar hier */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/ladder" /> : <Login />}
-        />
-        <Route
-          path="/register"
-          element={user ? <Navigate to="/ladder" /> : <Register />}
-        />
-        <Route
-          path="/ladder"
-          element={user ? <Ladder user={user} /> : <Navigate to="/login" />}
-        />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/register" element={<Register />} />
+        {/* weitere Routen */}
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
+
+export default App;
