@@ -2,28 +2,56 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-6">
+    <div className="min-h-screen bg-gray-900 text-white px-6 py-12">
       <div className="max-w-5xl mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-yellow-400">Willkommen bei ClassicCore League</h1>
-        <p className="text-lg md:text-xl mb-8 text-gray-300">
-          Du vermisst die alten Gaming-Zeiten? Counter-Strike 1.6, Warcraft 3, Call of Duty 4 oder Medal of Honor: Allied Assault waren deine Klassiker?
-          Dann bist du hier genau richtig! ✨
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">🎮 ClassicCore League</h1>
+        <p className="text-lg md:text-xl text-gray-300 mb-10">
+          Willkommen bei der <strong>ClassicCore League</strong> – deiner Anlaufstelle für echte Nostalgiker!
+          Erlebe die glorreichen Zeiten von <em>Counter-Strike 1.6</em>, <em>Warcraft 3</em>, 
+          <em>CoD 4</em> und anderen Klassikern. Spiele in Ladders, fordere andere heraus 
+          und messe dich in einem modernen, automatisierten Liga-System. Ohne Schnickschnack. Einfach Gaming, wie früher.
         </p>
-        <p className="text-md md:text-lg mb-10 text-gray-400">
-          ClassicCore ist die E-Sports-Liga für echte Nostalgiker. Spiele im <span className="text-green-400 font-semibold">Ladder-System</span>,
-          fordere Teams heraus, sammle Punkte und klettere die Rangliste hoch – alles im Stil der 2000er.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <img className="rounded-xl shadow-md" src="https://upload.wikimedia.org/wikipedia/en/4/45/Counter-Strike_1.6_cover.png" alt="CS 1.6" />
-          <img className="rounded-xl shadow-md" src="https://upload.wikimedia.org/wikipedia/en/1/1e/Warcraft3_Cover.jpg" alt="Warcraft 3" />
-          <img className="rounded-xl shadow-md" src="https://upload.wikimedia.org/wikipedia/en/2/28/Call_of_Duty_4_Modern_Warfare.jpg" alt="CoD 4" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div>
+            <img
+              src="https://cdn.cloudflare.steamstatic.com/steam/apps/10/header.jpg"
+              alt="Counter-Strike 1.6"
+              className="rounded-lg shadow-lg"
+            />
+            <h3 className="mt-4 text-xl font-semibold">Counter-Strike 1.6</h3>
+          </div>
+          <div>
+            <img
+              src="https://cdn.cloudflare.steamstatic.com/steam/apps/2100/header.jpg"
+              alt="Warcraft 3"
+              className="rounded-lg shadow-lg"
+            />
+            <h3 className="mt-4 text-xl font-semibold">Warcraft III</h3>
+          </div>
+          <div>
+            <img
+              src="https://cdn.cloudflare.steamstatic.com/steam/apps/7940/header.jpg"
+              alt="Call of Duty 4"
+              className="rounded-lg shadow-lg"
+            />
+            <h3 className="mt-4 text-xl font-semibold">Call of Duty 4</h3>
+          </div>
         </div>
-        <a
-          href="/register"
-          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-xl text-lg font-bold shadow-lg transition duration-300"
-        >
-          Jetzt kostenlos registrieren & loslegen
-        </a>
+
+        <div className="bg-gray-800 p-6 rounded-xl shadow-md">
+          <h2 className="text-2xl font-bold mb-4">🚀 Jetzt einsteigen</h2>
+          <p className="text-gray-300 mb-4">
+            Melde dich kostenlos an, finde ein Team oder tritt einer bestehenden Gruppe bei. 
+            Fordere andere Teams heraus, sammle Punkte im Ladder-System und arbeite dich an die Spitze.
+          </p>
+          <a
+            href="/register"
+            className="inline-block bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded-full font-semibold"
+          >
+            Jetzt registrieren
+          </a>
+        </div>
       </div>
     </div>
   );
