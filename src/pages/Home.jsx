@@ -1,47 +1,32 @@
-import React from 'react';
+import React from "react";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8 text-center text-white">Classic Games League</h1>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="bg-gray-800 rounded shadow-lg overflow-hidden">
-          <img
-            src="https://www.gamersglobal.de/sites/gamersglobal.de/files/news/teaser/164/header.jpg"
-            alt="Counter-Strike 1.6"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-semibold text-white">Counter-Strike 1.6</h2>
-            <p className="text-gray-300 mt-2">Legendäres taktisches Shooter-Spiel aus 2003.</p>
-          </div>
+    <div className="bg-gray-900 text-white min-h-screen p-6">
+      <div className="max-w-5xl mx-auto text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-yellow-400">Willkommen bei ClassicCore League</h1>
+        <p className="text-lg md:text-xl mb-8 text-gray-300">
+          Du vermisst die alten Gaming-Zeiten? Counter-Strike 1.6, Warcraft 3, Call of Duty 4 oder Medal of Honor: Allied Assault waren deine Klassiker?
+          Dann bist du hier genau richtig! ✨
+        </p>
+        <p className="text-md md:text-lg mb-10 text-gray-400">
+          ClassicCore ist die E-Sports-Liga für echte Nostalgiker. Spiele im <span className="text-green-400 font-semibold">Ladder-System</span>,
+          fordere Teams heraus, sammle Punkte und klettere die Rangliste hoch – alles im Stil der 2000er.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <img className="rounded-xl shadow-md" src="https://upload.wikimedia.org/wikipedia/en/4/45/Counter-Strike_1.6_cover.png" alt="CS 1.6" />
+          <img className="rounded-xl shadow-md" src="https://upload.wikimedia.org/wikipedia/en/1/1e/Warcraft3_Cover.jpg" alt="Warcraft 3" />
+          <img className="rounded-xl shadow-md" src="https://upload.wikimedia.org/wikipedia/en/2/28/Call_of_Duty_4_Modern_Warfare.jpg" alt="CoD 4" />
         </div>
-
-        <div className="bg-gray-800 rounded shadow-lg overflow-hidden">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/0/0f/Warcraft_III_Reign_of_Chaos_cover.jpg"
-            alt="Warcraft III"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-semibold text-white">Warcraft III</h2>
-            <p className="text-gray-300 mt-2">Echtzeit-Strategiespiel-Klassiker von Blizzard.</p>
-          </div>
-        </div>
-
-        <div className="bg-gray-800 rounded shadow-lg overflow-hidden">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/2/2e/Medal_of_Honor_Allied_Assault_Coverart.png"
-            alt="Medal of Honor Allied Assault"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-semibold text-white">Medal of Honor: Allied Assault</h2>
-            <p className="text-gray-300 mt-2">Klassischer WW2-Shooter mit packender Story.</p>
-          </div>
-        </div>
+        <a
+          href="/register"
+          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-xl text-lg font-bold shadow-lg transition duration-300"
+        >
+          Jetzt kostenlos registrieren & loslegen
+        </a>
       </div>
     </div>
   );
-}
+};
+
+export default Home;
