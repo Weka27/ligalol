@@ -1,25 +1,25 @@
-// src/App.jsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./AuthContext";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
-function App() {
+import Home       from "./pages/Home";
+import Login      from "./pages/Login";
+import Register   from "./pages/Register";
+import Dashboard  from "./pages/Dashboard";
+import NotFound   from "./pages/NotFound";
+
+export default function App() {
+  const { user } = useAuth();
+
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/"         element={ user ? <Navigate to="/dashboard" /> : <Home /> } />
+        <Route path="/login"    element={ user ? <Navigate to="/dashboard" /> : <Login /> } />
+        <Route path="/register" element={ user ? <Navigate to="/dashboard" /> : <Register /> } />
+
+        <Route path="/dashboard" element={ user ? <Dashboard /> : <Navigate to="/" /> } />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
