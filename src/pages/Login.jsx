@@ -1,50 +1,36 @@
-import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
-import { useNavigate } from "react-router-dom";
+// src/App.jsx
+import { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Navbar from "./components/Navbar";
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/ladder");
-    } catch (err) {
-      setError("Login fehlgeschlagen. Überprüfe deine Eingaben.");
-    }
-  };
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currUser) => {
+      setUser(currUser);
+    });
+    return () => unsub();
+  }, []);
 
   return (
-    <div className="max-w-md mx-auto p-8 bg-gray-800 rounded mt-8">
-      <h2 className="text-2xl mb-6">Login</h2>
-      <form onSubmit={handleLogin} className="flex flex-col space-y-4">
-        <input
-          type="email"
-          placeholder="E-Mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="p-2 rounded bg-gray-700"
-        />
-        <input
-          type="password"
-          placeholder="Passwort"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="p-2 rounded bg-gray-700"
-        />
-        {error && <div className="text-red-400">{error}</div>}
-        <button type="submit" className="bg-blue-600 p-2 rounded hover:bg-blue-700">
-          Login
-        </button>
-      </form>
+    <div className="min-h-screen bg-gray-900 text-white">
+      <Navbar user={user} />
+      <Routes>
+        <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="*" element={<p className="p-4">404 – Seite nicht gefunden</p>} />
+      </Routes>
     </div>
   );
 }
+
+export default App;
