@@ -1,14 +1,20 @@
-// src/pages/Home.jsx
 import React, { useContext } from "react";
-import { AuthContext } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";  // Dein Auth Context
 import { signOut } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth } from "../firebaseConfig";  // Dein Firebase Setup
 
 export default function Home() {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut(auth);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/"); // Nach Logout zurück zur Startseite
+    } catch (error) {
+      console.error("Logout Fehler:", error);
+    }
   };
 
   return (
@@ -17,13 +23,18 @@ export default function Home() {
       {user ? (
         <>
           <p className="mb-4">Hallo, {user.email}</p>
-          <button onClick={handleLogout} className="bg-red-600 px-4 py-2 rounded hover:bg-red-700">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+          >
             Logout
           </button>
         </>
       ) : (
         <>
           <p className="mb-4">Du bist nicht eingeloggt.</p>
+          <a href="/login" className="underline text-blue-400">Login</a> oder{" "}
+          <a href="/register" className="underline text-blue-400">Registrieren</a>
         </>
       )}
     </div>
