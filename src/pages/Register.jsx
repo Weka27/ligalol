@@ -1,41 +1,31 @@
-// src/pages/Register.jsx
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [email,setE]=useState(""); const [pass,setP]=useState(""); const [err,setErr]=useState("");
+  const nav = useNavigate();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/");
-    } catch (error) {
-      alert(error.message);
-    }
+  const handle = async e=>{
+    e.preventDefault(); setErr("");
+    try{
+      await createUserWithEmailAndPassword(auth,email,pass);
+      nav("/dashboard");
+    }catch(ex){ setErr("Registrierung fehlgeschlagen."); }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex justify-center items-center">
-      <form onSubmit={handleRegister} className="bg-gray-800 p-6 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Register</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-2 mb-4 rounded bg-gray-700"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-2 mb-4 rounded bg-gray-700"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="w-full bg-green-600 p-2 rounded hover:bg-green-700">Register</button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <form onSubmit={handle} className="bg-gray-800 p-8 rounded w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4">Registrieren</h2>
+        {err && <div className="text-red-500 mb-2">{err}</div>}
+        <input className="w-full p-2 mb-3 bg-gray-700 rounded" placeholder="E-Mail"
+               onChange={e=>setE(e.target.value)} value={email} required />
+        <input className="w-full p-2 mb-5 bg-gray-700 rounded" type="password" placeholder="Passwort (min 6)"
+               onChange={e=>setP(e.target.value)} value={pass} required minLength={6} />
+        <button className="w-full bg-green-600 hover:bg-green-700 p-2 rounded">Registrieren</button>
+        <p className="mt-3 text-center text-sm">Schon dabei? <Link to="/login" className="underline">Login</Link></p>
       </form>
     </div>
   );
