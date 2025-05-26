@@ -1,42 +1,44 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../AuthContext";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebaseConfig";  // Dein Firebase Setup
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/"); // Nach Logout zurück zur Startseite
-    } catch (error) {
-      console.error("Logout Fehler:", error);
-    }
-  };
+  const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <h1 className="text-4xl font-bold mb-6">ClassicCore League</h1>
-      {user ? (
-        <>
-          <p className="mb-4">Hallo, {user.email}</p>
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700"
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <>
-          <p className="mb-4">Du bist nicht eingeloggt.</p>
-          <a href="/login" className="underline text-blue-400">Login</a> oder{" "}
-          <a href="/register" className="underline text-blue-400">Registrieren</a>
-        </>
+    <div className="min-h-screen bg-[#1b1b1b] text-gray-100 p-10">
+      <h1 className="text-5xl font-bold text-yellow-400 mb-6 text-center">
+        ClassicCore League
+      </h1>
+
+      <p className="max-w-2xl mx-auto text-center text-lg text-gray-300 mb-10">
+        Die Online-Liga für Nostalgiker – CS 1.6, Warcraft 3, CoD4 u. v. m.<br/>
+        Spiele Ladder-Matches wie zu alten ESL-Zeiten, steige im Ranking auf und
+        werde Legende!
+      </p>
+
+      {!user && (
+        <div className="flex justify-center gap-6">
+          <Link to="/login" className="bg-blue-600 px-6 py-3 rounded shadow hover:bg-blue-700">
+            Login
+          </Link>
+          <Link to="/register" className="bg-green-600 px-6 py-3 rounded shadow hover:bg-green-700">
+            Registrieren
+          </Link>
+        </div>
       )}
+
+      <div className="max-w-4xl mx-auto mt-16 grid md:grid-cols-3 gap-6">
+        {[
+          ["Counter-Strike 1.6","https://cdn.cloudflare.steamstatic.com/steam/apps/10/header.jpg"],
+          ["Warcraft III","https://cdn.cloudflare.steamstatic.com/steam/apps/2100/header.jpg"],
+          ["CoD 4","https://cdn.cloudflare.steamstatic.com/steam/apps/7940/header.jpg"]
+        ].map(([title,src])=>(
+          <div key={title} className="bg-[#242424] rounded shadow-lg overflow-hidden">
+            <img src={src} alt={title} className="w-full h-40 object-cover" />
+            <div className="p-3 text-center font-semibold">{title}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
