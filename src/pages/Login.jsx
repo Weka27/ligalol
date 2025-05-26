@@ -1,36 +1,31 @@
-// src/App.jsx
-import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
+// src/pages/Login.jsx
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Navbar from "./components/Navbar";
+export default function Login() {
+  const navigate = useNavigate();
 
-function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currUser) => {
-      setUser(currUser);
-    });
-    return () => unsub();
-  }, []);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard");
+    } catch (err) {
+      alert("Login fehlgeschlagen: " + err.message);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar user={user} />
-      <Routes>
-        <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-        <Route path="*" element={<p className="p-4">404 – Seite nicht gefunden</p>} />
-      </Routes>
+    <div className="p-4 max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <form onSubmit={handleLogin} className="space-y-4">
+        <input name="email" type="email" placeholder="E-Mail" className="w-full p-2 bg-gray-800" required />
+        <input name="password" type="password" placeholder="Passwort" className="w-full p-2 bg-gray-800" required />
+        <button className="w-full bg-blue-600 hover:bg-blue-700 p-2">Login</button>
+      </form>
     </div>
   );
 }
-
-export default App;
