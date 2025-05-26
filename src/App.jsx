@@ -1,35 +1,21 @@
 // src/App.jsx
-import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebaseConfig";
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currUser) => {
-      setUser(currUser);
-    });
-    return () => unsub();
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar user={user} />
+    <Router>
       <Routes>
-        <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-        <Route path="*" element={<p className="p-4">404 – Seite nicht gefunden</p>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+    </Router>
   );
 }
 
