@@ -1,39 +1,26 @@
-/*  src/App.jsx  */
-
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-/* --- Seiten/Komponenten --- */
-import Home    from "./pages/Home.jsx";       // deine ESL-Startseite
-import Ladder  from "./pages/Ladder.jsx";     // TODO: bauen
-import Login   from "./pages/Login.jsx";      // TODO: bauen
-import Register from "./pages/Register.jsx";  // TODO: bauen
-import NotFound from "./pages/NotFound.jsx";  // Fallback-404
-
-/* --- (Optional) globale Styles oder Tailwind-Import, falls du
-       NICHT den CDN-Weg nutzt:  */
-// import "./index.css";
+// App.jsx (oder z.B. AuthProvider.jsx, wenn du modular arbeitest)
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase"; // deine Firebase-Konfiguration
+import { useEffect, useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe(); // Cleanup
+  }, []);
+
   return (
-    <Router>
-      {/*  Hier könntest du später eine globale Navbar einbinden  */}
-      {/*  <Navbar />  */}
-
-      <Routes>
-        {/* Startseite im alten ESL-Look */}
-        <Route path="/" element={<Home />} />
-
-        {/* Weitere (noch leere) Seiten */}
-        <Route path="/ladder"    element={<Ladder    />} />
-        <Route path="/login"     element={<Login     />} />
-        <Route path="/register"  element={<Register  />} />
-
-        {/* 404-Fallback – immer ganz unten lassen */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <>
+      {user ? (
+        <p>Hallo, {user.email}</p>
+      ) : (
+        <p>Du bist nicht eingeloggt</p>
+      )}
+    </>
   );
 }
-
-export default App;
